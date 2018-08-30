@@ -361,29 +361,48 @@ bcsHandleStatus (BREthereumBCS bcs,
  * @function bcsHandleAnnounce
  *
  * @abstract
- * Handle a LES 'announce' result.
+ * Handle a LES 'announce' result.  Results are announced by all connected nodes; thus we'll get
+ * multiple announcements.  Once we determien which announcement it respect, we'll then request
+ * the BlockHeader - with that, we'll then chain the block and request bodies and receipts.
+ *
+ * How do determine which announcement to respect?  Really, the header is required before we can
+ * judge if this announced data is valid.  For example, some rogue node could produce a 'tempting'
+ * annoucement (say, a high headNumber); if we jump on that we might miss correct announcements
+ * from 'respected' nodes.
+ *
+ * Thus, we'll get headers for all announcments - and sort it out, validate it - later.
+ * How to know which Node we should be requesting headers from? ... Do we really need to hold on
+ * to the Node, passing it everywhere?
  */
 extern void
 bcsHandleAnnounce (BREthereumBCS bcs,
                    BREthereumHash headHash,
                    uint64_t headNumber,
                    UInt256 headTotalDifficulty,
-                   uint64_t reorgDepth) {
-    // Reorg depth suggest the N blocks are wrong. We'll orphan all of them, request the next
-    // header and likely perform a sync to fill in the missing
+                   uint64_t reorgDepth,
+                   BREthereumLESNodeReference node) {
+    // If we are in the middle of a sync, we won't be reorganizing anything.
+    if (bcsSyncIsActive(bcs->sync)) {
+        reorgDepth = 0;
+        eth_log ("BCS", "ReorgDepth: %llu @ %llu: Ignored, in Sync", reorgDepth, headNumber);
+    }
+
+    // Reorg depth suggests that N blocks are wrong. We'll orphan all of them, request the next
+    // block headers back in history by reorgDepth, and likely perform a sync to fill in the
+    // missing headers.
     if (0 != reorgDepth) {
         if (reorgDepth < BCS_REORG_LIMIT)
             bcsUnwindChain (bcs, reorgDepth);
-        eth_log ("BCS", "ReorgDepth: %llu", reorgDepth);
+        eth_log ("BCS", "ReorgDepth: %llu @ %llu", reorgDepth, headNumber);
     }
 
     // Request the block - backup a bit if we need to reorg.  Figure it will sort itself out
-    // as old block arrive.
+    // as old blocks arrive.
     lesGetBlockHeaders (bcs->les,
                         (BREthereumLESBlockHeadersContext) bcs,
                         (BREthereumLESBlockHeadersCallback) bcsSignalBlockHeader,
                         headNumber - reorgDepth,
-                        1 + reorgDepth,
+                        1 + (uint32_t) reorgDepth,
                         0,
                         ETHEREUM_BOOLEAN_FALSE);
 }

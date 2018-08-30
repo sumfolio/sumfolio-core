@@ -46,6 +46,12 @@ typedef struct {} BREthereumLESPeerConfig;
  */
 typedef struct BREthereumLESRecord *BREthereumLES;
 
+/**
+ * An opaque type for a Node.  Only used in the announce callback to identify what node produced
+ * the hea
+ */
+typedef void *BREthereumLESNodeReference;
+
 /*!
  *@typedef BREthereumLESStatus
  *
@@ -79,7 +85,8 @@ typedef void
                                   BREthereumHash headHash,
                                   uint64_t headNumber,
                                   UInt256 headTotalDifficulty,
-                                  uint64_t reorgDepth);
+                                  uint64_t reorgDepth,
+                                  BREthereumLESNodeReference node);
 
 
 /**
@@ -139,6 +146,14 @@ lesStart (BREthereumLES les);
 
 extern void
 lesStop (BREthereumLES les);
+
+/**
+ * Change `node` into the preferred node for `LES`.  In practice, all subsequent LES requests
+ * will go to `node` (as long as the node is connected).
+ */
+extern void
+lesNodePrefer (BREthereumLES les,
+               BREthereumLESNodeReference node);
 
 ///////
 //

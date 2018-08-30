@@ -98,6 +98,8 @@ struct BREthereumBCSStruct {
      *
      * Note: Why keep blocks rather then blockHeaders?  We need to associate Logs with the
      * block (or blockHeader) that generated the Log - we chose block.
+     *
+     * TODO: Update the comment above on the blocks contained.
      */
     BRSetOf(BREthereumBlock) blocks;
 
@@ -158,10 +160,6 @@ struct BREthereumBCSStruct {
      * Sync state
      */
     BREthereumBCSSync sync;
-//    int syncActive;
-//    uint64_t syncTail;
-//    uint64_t syncNext;
-//    uint64_t syncHead;
 };
 
 extern const BREventType *bcsEventTypes[];
@@ -198,14 +196,16 @@ bcsHandleAnnounce (BREthereumBCS bcs,
                    BREthereumHash headHash,
                    uint64_t headNumber,
                    UInt256 headTotalDifficulty,
-                   uint64_t reorgDepth);
+                   uint64_t reorgDepth,
+                   BREthereumLESNodeReference node);
 
 extern void
 bcsSignalAnnounce (BREthereumBCS bcs,
                    BREthereumHash headHash,
                    uint64_t headNumber,
                    UInt256 headTotalDifficulty,
-                   uint64_t reorgDepth);
+                   uint64_t reorgDepth,
+                   BREthereumLESNodeReference node);
 
 //
 // Status

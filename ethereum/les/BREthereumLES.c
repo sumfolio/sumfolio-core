@@ -748,6 +748,27 @@ lesNodeRemConnected (BREthereumLES les,
 
 }
 
+extern void
+lesNodePrefer (BREthereumLES les,
+               BREthereumLESNodeReference nodeReference) {
+    BREthereumLESNode node = (BREthereumLESNode) nodeReference;
+
+    pthread_mutex_lock (&les->lock);
+
+    // Only think about using `node` if it is connected.
+    FOR_CONNECTED_NODES_INDEX(les, index) {
+        if (node == les->connectedNodes[index]) {
+            if (0 != index) {
+                les->connectedNodes[index] = les->connectedNodes[0];
+                les->connectedNodes[0] = node;
+            }
+            // index != 0 or not, done.
+            break;
+        }
+    }
+    pthread_mutex_unlock (&les->lock);
+}
+
 static size_t
 lesNodeAvailableCount (BREthereumLES les) {
     size_t count = 0;
@@ -999,7 +1020,8 @@ lesHandleLESMessage (BREthereumLES les,
                                    message.u.announce.headHash,
                                    message.u.announce.headNumber,
                                    message.u.announce.headTotalDifficulty,
-                                   message.u.announce.reorgDepth);
+                                   message.u.announce.reorgDepth,
+                                   (BREthereumLESNodeReference) node);
             break;
 
         default: {
