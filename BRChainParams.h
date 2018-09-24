@@ -129,8 +129,8 @@ static int BRTestNetVerifyDifficulty(const BRMerkleBlock *block, const BRSet *bl
 
 static const BRChainParams BRMainNetParams = {
     BRMainNetDNSSeeds,
-    8333,       // standardPort
-    0xd9b4bef9, // magicNumber
+    3333,       // standardPort
+    0xfdc2b7d3, // magicNumber
     0,          // services
     BRMainNetVerifyDifficulty,
     BRMainNetCheckpoints,
@@ -139,8 +139,8 @@ static const BRChainParams BRMainNetParams = {
 
 static const BRChainParams BRTestNetParams = {
     BRTestNetDNSSeeds,
-    18333,      // standardPort
-    0x0709110b, // magicNumber
+    13333,      // standardPort
+    0xf6c7b4d1, // magicNumber
     0,          // services
     BRTestNetVerifyDifficulty,
     BRTestNetCheckpoints,
