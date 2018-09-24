@@ -1,4 +1,5 @@
-# breadwallet-core
-SPV bitcoin C library
+# Sumpay-core
 
-[getting started](https://github.com/breadwallet/breadwallet-core/wiki)
+SPV Sumcoin C library
+
+[getting started](https://github.com/sumcoinlabs/sumpay-core/wiki)
