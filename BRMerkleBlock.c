@@ -337,7 +337,7 @@ int BRMerkleBlockVerifyDifficulty(const BRMerkleBlock *block, const BRMerkleBloc
     if (! previous || !UInt256Eq(block->prevBlock, previous->blockHash) || block->height != previous->height + 1) r = 0;
     if (r && (block->height % BLOCK_DIFFICULTY_INTERVAL) == 0 && transitionTime == 0) r = 0;
         
-    if (r && (block->height % BLOCK_DIFFICULTY_INTERVAL) == 0) {
+   /* if (r && (block->height % BLOCK_DIFFICULTY_INTERVAL) == 0) {
         // target is in "compact" format, where the most significant byte is the size of the value in bytes, next
         // bit is the sign, and the last 23 bits is the value after having been right shifted by (size - 3)*8 bits
         size = previous->target >> 24, target = previous->target & 0x007fffff;
@@ -360,7 +360,7 @@ int BRMerkleBlockVerifyDifficulty(const BRMerkleBlock *block, const BRMerkleBloc
         if (block->target != target) r = 0;
     }
     else if (r && block->target != previous->target) r = 0;
-    
+    */
     return r;
 }
 
