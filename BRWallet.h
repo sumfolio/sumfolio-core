@@ -35,8 +35,8 @@
 extern "C" {
 #endif
 
-#define DEFAULT_FEE_PER_KB (TX_FEE_PER_KB*10)                  // 10 satoshis-per-byte
-#define MIN_FEE_PER_KB     TX_FEE_PER_KB                       // bitcoind 0.12 default min-relay fee
+#define DEFAULT_FEE_PER_KB (TX_FEE_PER_KB*100000)                  // 100000 sigmas-per-byte
+#define MIN_FEE_PER_KB     TX_FEE_PER_KB                       // sumcoind 0.16.1 default min-relay fee
 #define MAX_FEE_PER_KB     ((TX_FEE_PER_KB*1000100 + 190)/191) // slightly higher than a 10,000bit fee on a 191byte tx
 
 typedef struct {
