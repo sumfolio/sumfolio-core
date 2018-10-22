@@ -286,14 +286,14 @@ public class BRWalletManager extends BRCoreWalletManager {
         asserting (addr1.stringify().equals(addr2.stringify()));
 
         System.out.println("        BitCash:");
-        String bitcoinAddr1 = key.address();
-        System.out.println("          Coin: " + bitcoinAddr1);
-        String bitcashAddr  = BRCoreAddress.bcashEncodeBitcoin(bitcoinAddr1);
+        String sumcoinAddr1 = key.address();
+        System.out.println("          Coin: " + sumcoinAddr1);
+        String bitcashAddr  = BRCoreAddress.bcashEncodeBitcoin(sumcoinAddr1);
         System.out.println("          Cash: " + bitcashAddr);
-        String bitcoinAddr2 = BRCoreAddress.bcashDecodeBitcoin(bitcashAddr);
-        asserting (bitcoinAddr1.equals(bitcoinAddr2));
-        String bitcoinAddr3 = BRCoreAddress.bcashDecodeBitcoin("bitcoincash:qzfhn2f7dwsfqdf6nlu07rw6c3ssqe9rm5a5y8tgm9");
-        asserting (null != bitcoinAddr3 && !bitcoinAddr3.isEmpty());
+        String sumcoinAddr2 = BRCoreAddress.bcashDecodeBitcoin(bitcashAddr);
+        asserting (sumcoinAddr1.equals(sumcoinAddr2));
+        String sumcoinAddr3 = BRCoreAddress.bcashDecodeBitcoin("bitcoincash:qzfhn2f7dwsfqdf6nlu07rw6c3ssqe9rm5a5y8tgm9");
+        asserting (null != sumcoinAddr3 && !sumcoinAddr3.isEmpty());
 
         System.out.println (" Mihail's BCH: " + "bitcoincash:qzc93708k7x0w3gr32thxc5fla38xf8x8vq8h33fva");
         System.out.println (" Mihail's BTC: " + BRCoreAddress.bcashDecodeBitcoin("bitcoincash:qzc93708k7x0w3gr32thxc5fla38xf8x8vq8h33fva"));
@@ -306,13 +306,13 @@ public class BRWalletManager extends BRCoreWalletManager {
         asserting (addrX2.isValid());
 
 
-        String bitcoinAddr8 = "n2gzmWpFmcyC1WamqXvZs4kFf16sJD5MNN";
+        String sumcoinAddr8 = "n2gzmWpFmcyC1WamqXvZs4kFf16sJD5MNN";
         String bitcashAddr8 = "qr5yphdxvy8f5gycmpe32kmmxna3hl4g5uvh59hkcn";
 
         System.out.println ("      Coin/Cash Loop");
         for (int i = 0; i < 100; i++) {
-            assert (bitcoinAddr8.equals(BRCoreAddress.bcashDecodeBitcoin(bitcashAddr8)));
-            assert (bitcashAddr8.equals(BRCoreAddress.bcashEncodeBitcoin(bitcoinAddr8)));
+            assert (sumcoinAddr8.equals(BRCoreAddress.bcashDecodeBitcoin(bitcashAddr8)));
+            assert (bitcashAddr8.equals(BRCoreAddress.bcashEncodeBitcoin(sumcoinAddr8)));
         }
         //
         //

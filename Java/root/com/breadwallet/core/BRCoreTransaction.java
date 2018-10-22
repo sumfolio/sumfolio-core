@@ -171,7 +171,7 @@ public class BRCoreTransaction extends BRCoreJniReference {
 
     /**
      * The transaction's standard fee which is the minimum transaction fee needed for the
-     * transaction to relay across the bitcoin network.
+     * transaction to relay across the sumcoin network.
      * *
      * @return the fee (in Satoshis)?
      */
@@ -194,7 +194,7 @@ public class BRCoreTransaction extends BRCoreJniReference {
 
     /**
      * Return true if this transaction satisfied the rules in:
-     *      https://bitcoin.org/en/developer-guide#standard-transactions
+     *      https://sumcoin.org/en/developer-guide#standard-transactions
      *
      * @return true if standard; false otherwise
      */

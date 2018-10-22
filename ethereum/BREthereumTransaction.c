@@ -810,7 +810,7 @@ struct BREthereumTransactionResult {
 /*
  Signing
 
- https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
+ https://sumcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v
 
  > msgSha = web3.sha3('Now it the time')
 "0x8b3942af68acfd875239181babe9ce093c420ca78d15b178fb63cf839dcf0971"

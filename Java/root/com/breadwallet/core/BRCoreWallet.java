@@ -317,7 +317,7 @@ public class BRCoreWallet extends BRCoreJniReference
 
     // local amount
 
-    // bitcoin amount
+    // sumcoin amount
 
     // To call BRWalletFree()
     public native void disposeNative ();

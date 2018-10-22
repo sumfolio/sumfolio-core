@@ -45,7 +45,7 @@
 #define BIP38_SCRYPT_EC_P      1
 
 // BIP38 is a method for encrypting private keys with a passphrase
-// https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
+// https://github.com/sumcoin/bips/blob/master/bip-0038.mediawiki
 
 static UInt256 _BRBIP38DerivePassfactor(uint8_t flag, const uint8_t *entropy, const char *passphrase)
 {
@@ -208,7 +208,7 @@ size_t BRKeyBIP38ItermediateCodeLS(char *code, size_t codeLen, uint32_t lot, uin
 }
 
 // generates a BIP38 key from an "intermediate code" and 24 bytes of cryptographically random data (seedb)
-// compressed indicates if compressed pubKey format should be used for the bitcoin address
+// compressed indicates if compressed pubKey format should be used for the sumcoin address
 void BRKeySetBIP38ItermediateCode(BRKey *key, const char *code, const uint8_t *seedb, int compressed)
 {
     // TODO: XXX implement

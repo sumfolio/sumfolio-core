@@ -30,12 +30,12 @@
 #include "BRInt.h"
 
 static const char *BRBCashDNSSeeds[] = {
-    "seed-abc.breadwallet.com.", "seed.bitcoinabc.org.", "seed-abc.bitcoinforks.org.", "seed.bitcoinunlimited.info.",
+    "seed-abc.breadwallet.com.", "seed.sumcoinabc.org.", "seed-abc.sumcoinforks.org.", "seed.sumcoinunlimited.info.",
     "seed.bitprim.org.", "seed.deadalnix.me.", NULL
 };
 
 static const char *BRBCashTestNetDNSSeeds[] = {
-    "testnet-seed.bitcoinabc.org", "testnet-seed-abc.bitcoinforks.org", "testnet-seed.bitprim.org",
+    "testnet-seed.sumcoinabc.org", "testnet-seed-abc.sumcoinforks.org", "testnet-seed.bitprim.org",
     "testnet-seed.deadalnix.me", "testnet-seeder.criptolayer.net", NULL
 };
 
@@ -108,7 +108,7 @@ static int BRBCashVerifyDifficulty(const BRMerkleBlock *block, const BRSet *bloc
     assert(block != NULL);
     assert(blockSet != NULL);
     
-    if (block && block->height >= 504032) { // D601 hard fork height: https://reviews.bitcoinabc.org/D601
+    if (block && block->height >= 504032) { // D601 hard fork height: https://reviews.sumcoinabc.org/D601
         last = BRSetGet(blockSet, &block->prevBlock);
         last = _medianBlock(last, blockSet);
 

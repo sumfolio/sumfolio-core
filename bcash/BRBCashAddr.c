@@ -134,29 +134,29 @@ static size_t _BRBCashAddrEncode(char *addr55, const char *hrp, const uint8_t da
     return i;
 }
 
-// returns the number of bytes written to bitcoinAddr36 (maximum of 36)
-size_t BRBCashAddrDecode(char *bitcoinAddr36, const char *bCashAddr)
+// returns the number of bytes written to sumcoinAddr36 (maximum of 36)
+size_t BRBCashAddrDecode(char *sumcoinAddr36, const char *bCashAddr)
 {
     uint8_t data[21], ver = UINT8_MAX;
     char bchaddr[55] = "bitcoincash:", bchtest[55] = "bchtest:", bchreg[55] = "bchreg:",
          BCHaddr[55] = "BITCOINCASH:", BCHtest[55] = "BCHTEST:", BCHreg[55] = "BCHREG:", hrp[12];
     
-    assert(bitcoinAddr36 != NULL);
+    assert(sumcoinAddr36 != NULL);
     assert(bCashAddr != NULL);
     
     if (_BRBCashAddrDecode(hrp, data, bCashAddr) == 21) {
         if (strcmp(hrp, "bitcoincash") == 0) {
-            if (data[0] == 0x00) ver = BITCOIN_PUBKEY_ADDRESS;
-            if (data[0] == 0x08) ver = BITCOIN_SCRIPT_ADDRESS;
+            if (data[0] == 0x00) ver = SUMCOIN_PUBKEY_ADDRESS;
+            if (data[0] == 0x08) ver = SUMCOIN_SCRIPT_ADDRESS;
         }
         else if (strcmp(hrp, "bchtest") == 0 || strcmp(hrp, "bchreg") == 0) {
-            if (data[0] == 0x00) ver = BITCOIN_PUBKEY_ADDRESS_TEST;
-            if (data[0] == 0x08) ver = BITCOIN_SCRIPT_ADDRESS_TEST;
+            if (data[0] == 0x00) ver = SUMCOIN_PUBKEY_ADDRESS_TEST;
+            if (data[0] == 0x08) ver = SUMCOIN_SCRIPT_ADDRESS_TEST;
         }
     }
     else if (BRBase58CheckDecode(data, sizeof(data), bCashAddr) == 21) {
-        if (data[0] == BCASH_PUBKEY_ADDRESS) ver = BITCOIN_PUBKEY_ADDRESS;
-        if (data[0] == BCASH_SCRIPT_ADDRESS) ver = BITCOIN_SCRIPT_ADDRESS;
+        if (data[0] == BCASH_PUBKEY_ADDRESS) ver = SUMCOIN_PUBKEY_ADDRESS;
+        if (data[0] == BCASH_SCRIPT_ADDRESS) ver = SUMCOIN_SCRIPT_ADDRESS;
     }
     else { // try adding various address prefixes
         strncpy(&bchaddr[12], bCashAddr, 42), bchaddr[54] = '\0';
@@ -167,33 +167,33 @@ size_t BRBCashAddrDecode(char *bitcoinAddr36, const char *bCashAddr)
         strncpy(&BCHreg[7], bCashAddr, 47), BCHreg[54] = '\0';
 
         if (_BRBCashAddrDecode(hrp, data, bchaddr) == 21 || _BRBCashAddrDecode(hrp, data, BCHaddr) == 21) {
-            if (data[0] == 0x00) ver = BITCOIN_PUBKEY_ADDRESS;
-            if (data[0] == 0x08) ver = BITCOIN_SCRIPT_ADDRESS;
+            if (data[0] == 0x00) ver = SUMCOIN_PUBKEY_ADDRESS;
+            if (data[0] == 0x08) ver = SUMCOIN_SCRIPT_ADDRESS;
         }
         else if (_BRBCashAddrDecode(hrp, data, bchtest) == 21 || _BRBCashAddrDecode(hrp, data, BCHtest) == 21 ||
                  _BRBCashAddrDecode(hrp, data, bchreg) == 21 || _BRBCashAddrDecode(hrp, data, BCHreg) == 21) {
-            if (data[0] == 0x00) ver = BITCOIN_PUBKEY_ADDRESS_TEST;
-            if (data[0] == 0x08) ver = BITCOIN_SCRIPT_ADDRESS_TEST;
+            if (data[0] == 0x00) ver = SUMCOIN_PUBKEY_ADDRESS_TEST;
+            if (data[0] == 0x08) ver = SUMCOIN_SCRIPT_ADDRESS_TEST;
         }
     }
 
     data[0] = ver;
-    return (ver != UINT8_MAX) ? BRBase58CheckEncode(bitcoinAddr36, 36, data, 21) : 0;
+    return (ver != UINT8_MAX) ? BRBase58CheckEncode(sumcoinAddr36, 36, data, 21) : 0;
 }
 
 // returns the number of bytes written to bCashAddr55 (maximum of 55)
-size_t BRBCashAddrEncode(char *bCashAddr55, const char *bitcoinAddr)
+size_t BRBCashAddrEncode(char *bCashAddr55, const char *sumcoinAddr)
 {
     uint8_t data[21], ver = 0;
     const char *hrp = NULL;
     
     assert(bCashAddr55 != NULL);
-    assert(bitcoinAddr != NULL);
-    if (BRBase58CheckDecode(data, sizeof(data), bitcoinAddr) != 21) return 0;
-    if (data[0] == BITCOIN_PUBKEY_ADDRESS) ver = 0x00, hrp = "bitcoincash";
-    if (data[0] == BITCOIN_SCRIPT_ADDRESS) ver = 0x08, hrp = "bitcoincash";
-    if (data[0] == BITCOIN_PUBKEY_ADDRESS_TEST) ver = 0x00, hrp = "bchtest";
-    if (data[0] == BITCOIN_SCRIPT_ADDRESS_TEST) ver = 0x08, hrp = "bchtest";
+    assert(sumcoinAddr != NULL);
+    if (BRBase58CheckDecode(data, sizeof(data), sumcoinAddr) != 21) return 0;
+    if (data[0] == SUMCOIN_PUBKEY_ADDRESS) ver = 0x00, hrp = "bitcoincash";
+    if (data[0] == SUMCOIN_SCRIPT_ADDRESS) ver = 0x08, hrp = "bitcoincash";
+    if (data[0] == SUMCOIN_PUBKEY_ADDRESS_TEST) ver = 0x00, hrp = "bchtest";
+    if (data[0] == SUMCOIN_SCRIPT_ADDRESS_TEST) ver = 0x08, hrp = "bchtest";
     data[0] = ver;
     return _BRBCashAddrEncode(bCashAddr55, hrp, data, 21);
 }

@@ -28,7 +28,7 @@ import java.util.concurrent.Executor;
 
 /**
  * A BRCoreWalletManger instance manages a single wallet, and that wallet's individual connection
- * to the bitcoin network.  After instantiating a BRCoreWalletManager object, call
+ * to the sumcoin network.  After instantiating a BRCoreWalletManager object, call
  * myWalletManager.peerManager.connect() to begin syncing.
  *
  */

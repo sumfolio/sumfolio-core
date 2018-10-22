@@ -560,7 +560,7 @@ static void _mempoolDone(void *info, int success)
         }
 
         _BRPeerManagerRequestUnrelayedTx(manager, peer);
-        BRPeerSendGetaddr(peer); // request a list of other bitcoin peers
+        BRPeerSendGetaddr(peer); // request a list of other sumcoin peers
         pthread_mutex_unlock(&manager->lock);
         if (manager->txStatusUpdate) manager->txStatusUpdate(manager->info);
         if (syncFinished && manager->syncStopped) manager->syncStopped(manager->info, 0);
@@ -1548,7 +1548,7 @@ void BRPeerManagerSetCallbacks(BRPeerManager *manager, void *info,
     manager->threadCleanup = (threadCleanup) ? threadCleanup : _dummyThreadCleanup;
 }
 
-// specifies a single fixed peer to use when connecting to the bitcoin network
+// specifies a single fixed peer to use when connecting to the sumcoin network
 // set address to UINT128_ZERO to revert to default behavior
 void BRPeerManagerSetFixedPeer(BRPeerManager *manager, UInt128 address, uint16_t port)
 {
@@ -1579,7 +1579,7 @@ BRPeerStatus BRPeerManagerConnectStatus(BRPeerManager *manager)
     return status;
 }
 
-// connect to bitcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
+// connect to sumcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
 void BRPeerManagerConnect(BRPeerManager *manager)
 {
     assert(manager != NULL);
@@ -1895,7 +1895,7 @@ static void _publishTxInvDone(void *info, int success)
     pthread_mutex_unlock(&manager->lock);
 }
 
-// publishes tx to bitcoin network (do not call BRTransactionFree() on tx afterward)
+// publishes tx to sumcoin network (do not call BRTransactionFree() on tx afterward)
 void BRPeerManagerPublishTx(BRPeerManager *manager, BRTransaction *tx, void *info,
                             void (*callback)(void *info, int error))
 {
@@ -1915,7 +1915,7 @@ void BRPeerManagerPublishTx(BRPeerManager *manager, BRTransaction *tx, void *inf
 
         if (connectFailureCount >= MAX_CONNECT_FAILURES ||
             (manager->networkIsReachable && ! manager->networkIsReachable(manager->info))) {
-            if (callback) callback(info, ENOTCONN); // not connected to bitcoin network
+            if (callback) callback(info, ENOTCONN); // not connected to sumcoin network
             tx = NULL;
         }
         else pthread_mutex_lock(&manager->lock);

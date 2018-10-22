@@ -100,13 +100,13 @@ public class BRCorePeerManager extends BRCoreJniReference {
     private native int getConnectStatusValue ();
 
     /**
-     * Connect to bitcoin peer-to-peer network (also call this whenever networkIsReachable()
+     * Connect to sumcoin peer-to-peer network (also call this whenever networkIsReachable()
      * status changes)
      */
     public native void connect();
 
     /*
-    // connect to bitcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
+    // connect to sumcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
     func connect() {
         if let fixedAddress = UserDefaults.customNodeIP {
             setFixedPeer(address: fixedAddress, port: UserDefaults.customNodePort ?? C.standardPort)
@@ -134,7 +134,7 @@ public class BRCorePeerManager extends BRCoreJniReference {
     }
 
     /**
-     * Disconnect from bitcoin peer-to-peer network (may cause syncFailed(), saveBlocks() or
+     * Disconnect from sumcoin peer-to-peer network (may cause syncFailed(), saveBlocks() or
      * savePeers() callbacks to fire)
      */
     public native void disconnect();
@@ -200,7 +200,7 @@ public class BRCorePeerManager extends BRCoreJniReference {
      * pass in the Listener, so that the Core function BRPeerManagerPublishTx() will know where
      * to callback into Java
      *
-     * This calls BRPeerManagerPublishTx which notes "publishes tx to bitcoin network (do not
+     * This calls BRPeerManagerPublishTx which notes "publishes tx to sumcoin network (do not
      * call BRTransactionFree() on tx afterward)"
      *
      * @param transaction

@@ -51,7 +51,7 @@ void BRSHA512(void *md64, const void *data, size_t dataLen);
 // ripemd-160: http://homes.esat.kuleuven.be/~bosselae/ripemd160.html
 void BRRMD160(void *md20, const void *data, size_t dataLen);
 
-// bitcoin hash-160 = ripemd-160(sha-256(x))
+// sumcoin hash-160 = ripemd-160(sha-256(x))
 void BRHash160(void *md20, const void *data, size_t dataLen);
 
 // sha3-256: http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf

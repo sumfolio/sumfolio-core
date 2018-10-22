@@ -145,13 +145,13 @@ JNIEXPORT jstring JNICALL Java_com_breadwallet_core_BRCoreAddress_bcashDecodeBit
         (JNIEnv *env, jclass thisClass, jstring bcashAddrString ) {
     const char *bcashAddr = (*env)->GetStringUTFChars (env, bcashAddrString, 0);
 
-    char bitcoinAddr[36 + 1];
+    char sumcoinAddr[36 + 1];
 
-    // returns the number of bytes written to bitcoinAddr36 (maximum of 36)
-    size_t bitcoinAddrLen = BRBCashAddrDecode (bitcoinAddr, bcashAddr);
-    bitcoinAddr[bitcoinAddrLen] = '\0';
+    // returns the number of bytes written to sumcoinAddr36 (maximum of 36)
+    size_t sumcoinAddrLen = BRBCashAddrDecode (sumcoinAddr, bcashAddr);
+    sumcoinAddr[sumcoinAddrLen] = '\0';
 
-    return (*env)->NewStringUTF (env, bitcoinAddr);
+    return (*env)->NewStringUTF (env, sumcoinAddr);
 }
 
 /*
@@ -160,14 +160,14 @@ JNIEXPORT jstring JNICALL Java_com_breadwallet_core_BRCoreAddress_bcashDecodeBit
  * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_breadwallet_core_BRCoreAddress_bcashEncodeBitcoin
-        (JNIEnv *env, jclass thisClass, jstring bitcoinAddrString) {
-    const char *bitcoinAddr = (*env)->GetStringUTFChars (env, bitcoinAddrString, 0);
+        (JNIEnv *env, jclass thisClass, jstring sumcoinAddrString) {
+    const char *sumcoinAddr = (*env)->GetStringUTFChars (env, sumcoinAddrString, 0);
 
     char bcashAddr[55 + 1];
 
     // returns the number of bytes written to bCashAddr55 (maximum of 55)
 
-    size_t bcashAddrLen = BRBCashAddrEncode(bcashAddr, bitcoinAddr);
+    size_t bcashAddrLen = BRBCashAddrEncode(bcashAddr, sumcoinAddr);
     bcashAddr[bcashAddrLen] = '\0';
 
     return (*env)->NewStringUTF (env, bcashAddr);

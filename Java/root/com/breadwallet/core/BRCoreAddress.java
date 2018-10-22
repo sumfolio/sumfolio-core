@@ -63,18 +63,18 @@ public class BRCoreAddress extends BRCoreJniReference {
     public native byte[] getPubKeyScript();
 
     /**
-     * Decode a bitcash address into a bitcoin address.
+     * Decode a bitcash address into a sumcoin address.
      *
      * @param bcashAddr the bitcash address
-     * @return the bitcoin address or NULL if unable to decode
+     * @return the sumcoin address or NULL if unable to decode
      */
     public static native String bcashDecodeBitcoin (String bcashAddr);
 
     /**
-     * Encode a bitcash address from a bitcoin address.
+     * Encode a bitcash address from a sumcoin address.
      *
-     * @param bitcoinAddr the bitcoin address
+     * @param sumcoinAddr the sumcoin address
      * @return a bitcash address or NULL if unable to encode
      */
-    public static native String bcashEncodeBitcoin (String bitcoinAddr);
+    public static native String bcashEncodeBitcoin (String sumcoinAddr);
 }

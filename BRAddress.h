@@ -34,17 +34,17 @@
 extern "C" {
 #endif
 
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
 #pragma message "testnet build"
 #endif
 
-// bitcoin address prefixes
-#define BITCOIN_PUBKEY_ADDRESS      63
-#define BITCOIN_SCRIPT_ADDRESS      200
-#define BITCOIN_PUBKEY_ADDRESS_TEST 125
-#define BITCOIN_SCRIPT_ADDRESS_TEST 8
+// sumcoin address prefixes
+#define SUMCOIN_PUBKEY_ADDRESS      63
+#define SUMCOIN_SCRIPT_ADDRESS      200
+#define SUMCOIN_PUBKEY_ADDRESS_TEST 125
+#define SUMCOIN_SCRIPT_ADDRESS_TEST 8
 
-// bitcoin script opcodes: https://en.bitcoin.it/wiki/Script#Constants
+// sumcoin script opcodes: https://en.sumcoin.it/wiki/Script#Constants
 #define OP_0           0x00
 #define OP_PUSHDATA1   0x4c
 #define OP_PUSHDATA2   0x4d
@@ -86,15 +86,15 @@ typedef struct {
 #define BR_ADDRESS_NONE ((BRAddress) { "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"\
                                        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" })
 
-// writes the bitcoin address for a scriptPubKey to addr
+// writes the sumcoin address for a scriptPubKey to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen);
 
-// writes the bitcoin address for a scriptSig to addr
+// writes the sumcoin address for a scriptSig to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen);
 
-// writes the bitcoin address for a witness to addr
+// writes the sumcoin address for a witness to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromWitness(char *addr, size_t addrLen, const uint8_t *witness, size_t witLen);
 
@@ -102,7 +102,7 @@ size_t BRAddressFromWitness(char *addr, size_t addrLen, const uint8_t *witness, 
 // returns the number of bytes written, or scriptLen needed if script is NULL
 size_t BRAddressScriptPubKey(uint8_t *script, size_t scriptLen, const char *addr);
 
-// returns true if addr is a valid bitcoin address
+// returns true if addr is a valid sumcoin address
 int BRAddressIsValid(const char *addr);
 
 // writes the 20 byte hash160 of addr to md20 and returns true on success

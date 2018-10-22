@@ -87,7 +87,7 @@ size_t BRKeyPubKey(BRKey *key, void *pubKey, size_t pkLen);
 // returns the ripemd160 hash of the sha256 hash of the public key, or UINT160_ZERO on error
 UInt160 BRKeyHash160(BRKey *key);
 
-// writes the pay-to-pubkey-hash bitcoin address for key to addr
+// writes the pay-to-pubkey-hash sumcoin address for key to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRKeyAddress(BRKey *key, char *addr, size_t addrLen);
 
@@ -102,7 +102,7 @@ int BRKeyVerify(BRKey *key, UInt256 md, const void *sig, size_t sigLen);
 // wipes key material from key
 void BRKeyClean(BRKey *key);
 
-// Pieter Wuille's compact signature encoding used for bitcoin message signing
+// Pieter Wuille's compact signature encoding used for sumcoin message signing
 // to verify a compact signature, recover a public key from the signature and verify that it matches the signer's pubkey
 size_t BRKeyCompactSign(const BRKey *key, void *compactSig, size_t sigLen, UInt256 md);
 

@@ -35,9 +35,9 @@
 #define TX_VERSION           0x00000001
 #define TX_LOCKTIME          0x00000000
 #define SIGHASH_ALL          0x01 // default, sign all of the outputs
-#define SIGHASH_NONE         0x02 // sign none of the outputs, I don't care where the bitcoins go
+#define SIGHASH_NONE         0x02 // sign none of the outputs, I don't care where the sumcoins go
 #define SIGHASH_SINGLE       0x03 // sign one of the outputs, I don't care where the other outputs go
-#define SIGHASH_ANYONECANPAY 0x80 // let other people add inputs, I don't care where the rest of the bitcoins come from
+#define SIGHASH_ANYONECANPAY 0x80 // let other people add inputs, I don't care where the rest of the sumcoins come from
 #define SIGHASH_FORKID       0x40 // use BIP143 digest method (for b-cash/b-gold signatures)
 
 // returns a random number less than upperBound, for non-cryptographic use only
@@ -183,7 +183,7 @@ static size_t _BRTransactionOutputData(const BRTransaction *tx, uint8_t *data, s
 }
 
 // writes the BIP143 witness program data that needs to be hashed and signed for the tx input at index
-// https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki
+// https://github.com/sumcoin/bips/blob/master/bip-0143.mediawiki
 // an index of SIZE_MAX will write the entire signed transaction
 // returns number of bytes written, or total len needed if data is NULL
 static size_t _BRTransactionWitnessData(const BRTransaction *tx, uint8_t *data, size_t dataLen, size_t index,
@@ -513,7 +513,7 @@ size_t BRTransactionSize(const BRTransaction *tx)
     return size;
 }
 
-// minimum transaction fee needed for tx to relay across the bitcoin network (bitcoind 0.12 default min-relay fee-rate)
+// minimum transaction fee needed for tx to relay across the sumcoin network (sumcoind 0.12 default min-relay fee-rate)
 uint64_t BRTransactionStandardFee(const BRTransaction *tx)
 {
     assert(tx != NULL);
@@ -533,7 +533,7 @@ int BRTransactionIsSigned(const BRTransaction *tx)
 }
 
 // adds signatures to any inputs with NULL signatures that can be signed with any keys
-// forkId is 0 for bitcoin, 0x40 for b-cash, 0x4f for b-gold
+// forkId is 0 for sumcoin, 0x40 for b-cash, 0x4f for b-gold
 // returns true if tx is signed
 int BRTransactionSign(BRTransaction *tx, int forkId, BRKey keys[], size_t keysCount)
 {
@@ -596,7 +596,7 @@ int BRTransactionSign(BRTransaction *tx, int forkId, BRKey keys[], size_t keysCo
     else return 0;
 }
 
-// true if tx meets IsStandard() rules: https://bitcoin.org/en/developer-guide#standard-transactions
+// true if tx meets IsStandard() rules: https://sumcoin.org/en/developer-guide#standard-transactions
 int BRTransactionIsStandard(const BRTransaction *tx)
 {
     int r = 1;

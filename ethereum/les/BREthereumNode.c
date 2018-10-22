@@ -85,7 +85,7 @@ static void *_nodeThreadRunFunc(void *arg);
 /**
  * Note: This function is a direct copy of Aaron's _BRPeerOpenSocket function with a few modifications to
  * work for the Ethereum Core.
- * TODO: May want to make this more modular to work for both etheruem and bitcoin
+ * TODO: May want to make this more modular to work for both etheruem and sumcoin
  */
 static int _openEtheruemPeerSocket(BREthereumNode node, int domain, double timeout, int *error)
 {

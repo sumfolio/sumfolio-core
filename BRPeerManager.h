@@ -65,17 +65,17 @@ void BRPeerManagerSetCallbacks(BRPeerManager *manager, void *info,
                                int (*networkIsReachable)(void *info),
                                void (*threadCleanup)(void *info));
 
-// specifies a single fixed peer to use when connecting to the bitcoin network
+// specifies a single fixed peer to use when connecting to the sumcoin network
 // set address to UINT128_ZERO to revert to default behavior
 void BRPeerManagerSetFixedPeer(BRPeerManager *manager, UInt128 address, uint16_t port);
 
 // current connect status
 BRPeerStatus BRPeerManagerConnectStatus(BRPeerManager *manager);
 
-// connect to bitcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
+// connect to sumcoin peer-to-peer network (also call this whenever networkIsReachable() status changes)
 void BRPeerManagerConnect(BRPeerManager *manager);
 
-// disconnect from bitcoin peer-to-peer network (may cause syncFailed(), saveBlocks() or savePeers() callbacks to fire)
+// disconnect from sumcoin peer-to-peer network (may cause syncFailed(), saveBlocks() or savePeers() callbacks to fire)
 void BRPeerManagerDisconnect(BRPeerManager *manager);
 
 // rescans blocks and transactions after earliestKeyTime (a new random download peer is also selected due to the
@@ -108,7 +108,7 @@ size_t BRPeerManagerPeerCount(BRPeerManager *manager);
 // description of the peer most recently used to sync blockchain data
 const char *BRPeerManagerDownloadPeerName(BRPeerManager *manager);
 
-// publishes tx to bitcoin network (do not call BRTransactionFree() on tx afterward)
+// publishes tx to sumcoin network (do not call BRTransactionFree() on tx afterward)
 void BRPeerManagerPublishTx(BRPeerManager *manager, BRTransaction *tx, void *info,
                             void (*callback)(void *info, int error));
 

@@ -384,7 +384,7 @@ void BRRMD160(void *md20, const void *data, size_t dataLen)
     mem_clean(buf, sizeof(buf));
 }
 
-// bitcoin hash-160 = ripemd-160(sha-256(x))
+// sumcoin hash-160 = ripemd-160(sha-256(x))
 void BRHash160(void *md20, const void *data, size_t datalen)
 {
     uint8_t t[32];

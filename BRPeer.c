@@ -740,7 +740,7 @@ static int _BRPeerAcceptMerkleblockMessage(BRPeer *peer, const uint8_t *msg, siz
     return r;
 }
 
-// described in BIP61: https://github.com/bitcoin/bips/blob/master/bip-0061.mediawiki
+// described in BIP61: https://github.com/sumcoin/bips/blob/master/bip-0061.mediawiki
 static int _BRPeerAcceptRejectMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen)
 {
     BRPeerContext *ctx = (BRPeerContext *)peer;
@@ -790,7 +790,7 @@ static int _BRPeerAcceptRejectMessage(BRPeer *peer, const uint8_t *msg, size_t m
     return r;
 }
 
-// BIP133: https://github.com/bitcoin/bips/blob/master/bip-0133.mediawiki
+// BIP133: https://github.com/sumcoin/bips/blob/master/bip-0133.mediawiki
 static int _BRPeerAcceptFeeFilterMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen)
 {
     BRPeerContext *ctx = (BRPeerContext *)peer;
@@ -1247,7 +1247,7 @@ uint64_t BRPeerFeePerKb(BRPeer *peer)
 #define MSG_NOSIGNAL 0 // set to 0 if undefined (BSD has the SO_NOSIGPIPE sockopt, and windows has no signals at all)
 #endif
 
-// sends a bitcoin protocol message to peer
+// sends a sumcoin protocol message to peer
 void BRPeerSendMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen, const char *type)
 {
     if (msgLen > MAX_MSG_LENGTH) {

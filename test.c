@@ -61,7 +61,7 @@
 #define _va_rest(first, ...) __VA_ARGS__
 #endif
 
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
 #define BR_CHAIN_PARAMS BRTestNetParams
 #else
 #define BR_CHAIN_PARAMS BRMainNetParams
@@ -1143,7 +1143,7 @@ int BRKeyTests()
     BRKeySetPrivKey(&key, "S6c56bnXQiBjk9mqSYE7ykVQ7NzrRy");
     BRKeyAddress(&key, addr.s, sizeof(addr));
     printf("privKey:S6c56bnXQiBjk9mqSYE7ykVQ7NzrRy = %s\n", addr.s);
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
     if (! BRAddressEq(&addr, "ms8fwvXzrCoyatnGFRaLbepSqwGRxVJQF1"))
         r = 0, fprintf(stderr, "***FAILED*** %s: BRKeySetPrivKey() test 1\n", __func__);
 #else
@@ -1158,7 +1158,7 @@ int BRKeyTests()
     BRKeySetPrivKey(&key, "SzavMBLoXU6kDrqtUVmffv");
     BRKeyAddress(&key, addr.s, sizeof(addr));
     printf("privKey:SzavMBLoXU6kDrqtUVmffv = %s\n", addr.s);
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
     if (! BRAddressEq(&addr, "mrhzp5mstA4Midx85EeCjuaUAAGANMFmRP"))
         r = 0, fprintf(stderr, "***FAILED*** %s: BRKeySetPrivKey() test 2\n", __func__);
 #else
@@ -1166,7 +1166,7 @@ int BRKeyTests()
         r = 0, fprintf(stderr, "***FAILED*** %s: BRKeySetPrivKey() test 2\n", __func__);
 #endif
 
-#if ! BITCOIN_TESTNET
+#if ! SUMCOIN_TESTNET
     // uncompressed private key
     if (! BRPrivKeyIsValid("5Kb8kLf9zgWQnogidDA76MzPL6TsZZY36hWXMssSzNydYXYB9KF"))
         r = 0, fprintf(stderr, "***FAILED*** %s: BRPrivKeyIsValid() test 3\n", __func__);
@@ -1750,9 +1750,9 @@ int BRBIP32SequenceTests()
 
     BRBIP39DeriveKey(dk.u8, "inhale praise target steak garlic cricket paper better evil almost sadness crawl city "
                      "banner amused fringe fox insect roast aunt prefer hollow basic ladder", NULL);
-    BRBIP32BitIDKey(&key, dk.u8, sizeof(dk), 0, "http://bitid.bitcoin.blue/callback");
+    BRBIP32BitIDKey(&key, dk.u8, sizeof(dk), 0, "http://bitid.sumcoin.blue/callback");
     BRKeyAddress(&key, addr.s, sizeof(addr));
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
     if (strncmp(addr.s, "mxZ2Dn9vcyNeKh9DNHZw6d6NrxeYCVNjc2", sizeof(addr)) != 0)
         r = 0, fprintf(stderr, "***FAILED*** %s: BRBIP32BitIDKey() test\n", __func__);
 #else
@@ -1965,7 +1965,7 @@ static void walletTxDeleted(void *info, UInt256 txHash, int notifyUser, int reco
 // TODO: test gap limit with gaps in address chain less than the limit
 // TODO: test removing a transaction that other transansactions depend on
 // TODO: test tx ordering for multiple tx with same block height
-// TODO: port all applicable tests from bitcoinj and bitcoincore
+// TODO: port all applicable tests from sumcoinj and sumcoincore
 
 int BRWalletTests()
 {
@@ -2812,7 +2812,7 @@ int BRRunTests()
     return (fail == 0);
 }
 
-#ifndef BITCOIN_TEST_NO_MAIN
+#ifndef SUMCOIN_TEST_NO_MAIN
 void syncStarted(void *info)
 {
     printf("sync started\n");

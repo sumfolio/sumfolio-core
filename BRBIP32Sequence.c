@@ -32,7 +32,7 @@
 #define BIP32_XPUB     "\x04\x88\xB2\x1E"
 
 // BIP32 is a scheme for deriving chains of addresses from a seed value
-// https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
+// https://github.com/sumcoin/bips/blob/master/bip-0032.mediawiki
 
 // Private parent key -> private child key
 //

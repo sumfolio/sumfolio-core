@@ -53,13 +53,13 @@ extern "C" {
 #endif
 
 #define SERVICES_NODE_NETWORK 0x01 // services value indicating a node carries full blocks, not just headers
-#define SERVICES_NODE_BLOOM   0x04 // BIP111: https://github.com/bitcoin/bips/blob/master/bip-0111.mediawiki
+#define SERVICES_NODE_BLOOM   0x04 // BIP111: https://github.com/sumcoin/bips/blob/master/bip-0111.mediawiki
 #define SERVICES_NODE_BCASH   0x20 // https://github.com/Bitcoin-UAHF/spec/blob/master/uahf-technical-spec.md
     
 #define BR_VERSION "1.0"
 #define USER_AGENT "/sumpay:" BR_VERSION "/"
 
-// explanation of message types at: https://en.bitcoin.it/wiki/Protocol_specification
+// explanation of message types at: https://en.sumcoin.it/wiki/Protocol_specification
 #define MSG_VERSION     "version"
 #define MSG_VERACK      "verack"
 #define MSG_ADDR        "addr"
@@ -80,8 +80,8 @@ extern "C" {
 #define MSG_FILTERCLEAR "filterclear"
 #define MSG_MERKLEBLOCK "merkleblock"
 #define MSG_ALERT       "alert"
-#define MSG_REJECT      "reject"   // described in BIP61: https://github.com/bitcoin/bips/blob/master/bip-0061.mediawiki
-#define MSG_FEEFILTER   "feefilter"// described in BIP133 https://github.com/bitcoin/bips/blob/master/bip-0133.mediawiki
+#define MSG_REJECT      "reject"   // described in BIP61: https://github.com/sumcoin/bips/blob/master/bip-0061.mediawiki
+#define MSG_FEEFILTER   "feefilter"// described in BIP133 https://github.com/sumcoin/bips/blob/master/bip-0133.mediawiki
 
 #define REJECT_INVALID     0x10 // transaction is invalid for some reason (invalid signature, output value > input, etc)
 #define REJECT_SPENT       0x12 // an input is already spent
@@ -98,7 +98,7 @@ typedef enum {
 typedef struct {
     UInt128 address; // IPv6 address of peer
     uint16_t port; // port number for peer connection
-    uint64_t services; // bitcoin network services supported by peer
+    uint64_t services; // sumcoin network services supported by peer
     uint64_t timestamp; // timestamp reported by peer
     uint8_t flags; // scratch variable
 } BRPeer;
@@ -176,7 +176,7 @@ uint64_t BRPeerFeePerKb(BRPeer *peer);
 // average ping time for connected peer
 double BRPeerPingTime(BRPeer *peer);
 
-// sends a bitcoin protocol message to peer
+// sends a sumcoin protocol message to peer
 void BRPeerSendMessage(BRPeer *peer, const uint8_t *msg, size_t msgLen, const char *type);
 void BRPeerSendFilterload(BRPeer *peer, const uint8_t *filter, size_t filterLen);
 void BRPeerSendMempool(BRPeer *peer, const UInt256 knownTxHashes[], size_t knownTxCount, void *info,

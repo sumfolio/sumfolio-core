@@ -234,7 +234,7 @@ size_t BRScriptPushData(uint8_t *script, size_t scriptLen, const uint8_t *data, 
 // we are unable to correctly sign later, then the entire wallet balance after that point would become stuck with the
 // current coin selection code
 
-// writes the bitcoin address for a scriptPubKey to addr
+// writes the sumcoin address for a scriptPubKey to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen)
 {
@@ -249,27 +249,27 @@ size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *scri
     if (count == 5 && *elems[0] == OP_DUP && *elems[1] == OP_HASH160 && *elems[2] == 20 &&
         *elems[3] == OP_EQUALVERIFY && *elems[4] == OP_CHECKSIG) {
         // pay-to-pubkey-hash scriptPubKey
-        data[0] = BITCOIN_PUBKEY_ADDRESS;
-#if BITCOIN_TESTNET
-        data[0] = BITCOIN_PUBKEY_ADDRESS_TEST;
+        data[0] = SUMCOIN_PUBKEY_ADDRESS;
+#if SUMCOIN_TESTNET
+        data[0] = SUMCOIN_PUBKEY_ADDRESS_TEST;
 #endif
         memcpy(&data[1], BRScriptData(elems[2], &l), 20);
         r = BRBase58CheckEncode(addr, addrLen, data, 21);
     }
     else if (count == 3 && *elems[0] == OP_HASH160 && *elems[1] == 20 && *elems[2] == OP_EQUAL) {
         // pay-to-script-hash scriptPubKey
-        data[0] = BITCOIN_SCRIPT_ADDRESS;
-#if BITCOIN_TESTNET
-        data[0] = BITCOIN_SCRIPT_ADDRESS_TEST;
+        data[0] = SUMCOIN_SCRIPT_ADDRESS;
+#if SUMCOIN_TESTNET
+        data[0] = SUMCOIN_SCRIPT_ADDRESS_TEST;
 #endif
         memcpy(&data[1], BRScriptData(elems[1], &l), 20);
         r = BRBase58CheckEncode(addr, addrLen, data, 21);
     }
     else if (count == 2 && (*elems[0] == 65 || *elems[0] == 33) && *elems[1] == OP_CHECKSIG) {
         // pay-to-pubkey scriptPubKey
-        data[0] = BITCOIN_PUBKEY_ADDRESS;
-#if BITCOIN_TESTNET
-        data[0] = BITCOIN_PUBKEY_ADDRESS_TEST;
+        data[0] = SUMCOIN_PUBKEY_ADDRESS;
+#if SUMCOIN_TESTNET
+        data[0] = SUMCOIN_PUBKEY_ADDRESS_TEST;
 #endif
         d = BRScriptData(elems[0], &l);
         BRHash160(&data[1], d, l);
@@ -279,7 +279,7 @@ size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *scri
                             (*elems[0] >= OP_1 && *elems[0] <= OP_16 && *elems[1] >= 2 && *elems[1] <= 40))) {
         // pay-to-witness scriptPubKey
         r = BRBech32Encode(a, "bc", script);
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
         r = BRBech32Encode(a, "tb", script);
 #endif
         if (addr && r > addrLen) r = 0;
@@ -289,7 +289,7 @@ size_t BRAddressFromScriptPubKey(char *addr, size_t addrLen, const uint8_t *scri
     return r;
 }
 
-// writes the bitcoin address for a scriptSig to addr
+// writes the sumcoin address for a scriptSig to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script, size_t scriptLen)
 {
@@ -300,9 +300,9 @@ size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script,
     const uint8_t *d = NULL, *elems[BRScriptElements(NULL, 0, script, scriptLen)];
     size_t l = 0, count = BRScriptElements(elems, sizeof(elems)/sizeof(*elems), script, scriptLen);
 
-    data[0] = BITCOIN_PUBKEY_ADDRESS;
-#if BITCOIN_TESTNET
-    data[0] = BITCOIN_PUBKEY_ADDRESS_TEST;
+    data[0] = SUMCOIN_PUBKEY_ADDRESS;
+#if SUMCOIN_TESTNET
+    data[0] = SUMCOIN_PUBKEY_ADDRESS_TEST;
 #endif
     
     if (count >= 2 && *elems[count - 2] <= OP_PUSHDATA4 &&
@@ -313,9 +313,9 @@ size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script,
     }
     else if (count >= 2 && *elems[count - 2] <= OP_PUSHDATA4 && *elems[count - 1] <= OP_PUSHDATA4 &&
              *elems[count - 1] > 0) { // pay-to-script-hash scriptSig
-        data[0] = BITCOIN_SCRIPT_ADDRESS;
-#if BITCOIN_TESTNET
-        data[0] = BITCOIN_SCRIPT_ADDRESS_TEST;
+        data[0] = SUMCOIN_SCRIPT_ADDRESS;
+#if SUMCOIN_TESTNET
+        data[0] = SUMCOIN_SCRIPT_ADDRESS_TEST;
 #endif
         d = BRScriptData(elems[count - 1], &l);
         if (d) BRHash160(&data[1], d, l);
@@ -328,7 +328,7 @@ size_t BRAddressFromScriptSig(char *addr, size_t addrLen, const uint8_t *script,
     return (d) ? BRBase58CheckEncode(addr, addrLen, data, 21) : 0;
 }
 
-// writes the bitcoin address for a witness to addr
+// writes the sumcoin address for a witness to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRAddressFromWitness(char *addr, size_t addrLen, const uint8_t *witness, size_t witLen)
 {
@@ -339,14 +339,14 @@ size_t BRAddressFromWitness(char *addr, size_t addrLen, const uint8_t *witness, 
 // returns the number of bytes written, or scriptLen needed if script is NULL
 size_t BRAddressScriptPubKey(uint8_t *script, size_t scriptLen, const char *addr)
 {
-    uint8_t data[42], pubkeyAddress = BITCOIN_PUBKEY_ADDRESS, scriptAddress = BITCOIN_SCRIPT_ADDRESS;
+    uint8_t data[42], pubkeyAddress = SUMCOIN_PUBKEY_ADDRESS, scriptAddress = SUMCOIN_SCRIPT_ADDRESS;
     char hrp[84], *bech32Prefix = "bc";
     size_t dataLen, r = 0;
     
     assert(addr != NULL);
-#if BITCOIN_TESTNET
-    pubkeyAddress = BITCOIN_PUBKEY_ADDRESS_TEST;
-    scriptAddress = BITCOIN_SCRIPT_ADDRESS_TEST;
+#if SUMCOIN_TESTNET
+    pubkeyAddress = SUMCOIN_PUBKEY_ADDRESS_TEST;
+    scriptAddress = SUMCOIN_SCRIPT_ADDRESS_TEST;
     bech32Prefix = "tb";
 #endif
     
@@ -386,7 +386,7 @@ size_t BRAddressScriptPubKey(uint8_t *script, size_t scriptLen, const char *addr
     return r;
 }
 
-// returns true if addr is a valid bitcoin address
+// returns true if addr is a valid sumcoin address
 int BRAddressIsValid(const char *addr)
 {
     uint8_t data[42];
@@ -396,14 +396,14 @@ int BRAddressIsValid(const char *addr)
     assert(addr != NULL);
     
     if (BRBase58CheckDecode(data, sizeof(data), addr) == 21) {
-        r = (data[0] == BITCOIN_PUBKEY_ADDRESS || data[0] == BITCOIN_SCRIPT_ADDRESS);
-#if BITCOIN_TESTNET
-        r = (data[0] == BITCOIN_PUBKEY_ADDRESS_TEST || data[0] == BITCOIN_SCRIPT_ADDRESS_TEST);
+        r = (data[0] == SUMCOIN_PUBKEY_ADDRESS || data[0] == SUMCOIN_SCRIPT_ADDRESS);
+#if SUMCOIN_TESTNET
+        r = (data[0] == SUMCOIN_PUBKEY_ADDRESS_TEST || data[0] == SUMCOIN_SCRIPT_ADDRESS_TEST);
 #endif
     }
     else if (BRBech32Decode(hrp, data, addr) > 2) {
         r = (strcmp(hrp, "bc") == 0 && (data[0] != OP_0 || data[1] == 20 || data[1] == 32));
-#if BITCOIN_TESTNET
+#if SUMCOIN_TESTNET
         r = (strcmp(hrp, "tb") == 0 && (data[0] != OP_0 || data[1] == 20 || data[1] == 32));
 #endif
     }

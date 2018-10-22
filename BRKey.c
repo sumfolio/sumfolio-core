@@ -30,8 +30,8 @@
 #include <assert.h>
 #include <pthread.h>
 
-#define BITCOIN_PRIVKEY      191
-#define BITCOIN_PRIVKEY_TEST 253
+#define SUMCOIN_PRIVKEY      191
+#define SUMCOIN_PRIVKEY_TEST 253
 
 #if __BIG_ENDIAN__ || (defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) ||\
     __ARMEB__ || __THUMBEB__ || __AARCH64EB__ || __MIPSEB__
@@ -141,11 +141,11 @@ int BRPrivKeyIsValid(const char *privKey)
     dataLen = BRBase58CheckDecode(data, sizeof(data), privKey);
     strLen = strlen(privKey);
     
-    if (dataLen == 33 || dataLen == 34) { // wallet import format: https://en.bitcoin.it/wiki/Wallet_import_format
-#if BITCOIN_TESTNET
-        r = (data[0] == BITCOIN_PRIVKEY_TEST);
+    if (dataLen == 33 || dataLen == 34) { // wallet import format: https://en.sumcoin.it/wiki/Wallet_import_format
+#if SUMCOIN_TESTNET
+        r = (data[0] == SUMCOIN_PRIVKEY_TEST);
 #else
-        r = (data[0] == BITCOIN_PRIVKEY);
+        r = (data[0] == SUMCOIN_PRIVKEY);
 #endif
     }
     else if ((strLen == 30 || strLen == 22) && privKey[0] == 'S') { // mini private key format
@@ -181,11 +181,11 @@ int BRKeySetSecret(BRKey *key, const UInt256 *secret, int compressed)
 int BRKeySetPrivKey(BRKey *key, const char *privKey)
 {
     size_t len = strlen(privKey);
-    uint8_t data[34], version = BITCOIN_PRIVKEY;
+    uint8_t data[34], version = SUMCOIN_PRIVKEY;
     int r = 0;
     
-#if BITCOIN_TESTNET
-    version = BITCOIN_PRIVKEY_TEST;
+#if SUMCOIN_TESTNET
+    version = SUMCOIN_PRIVKEY_TEST;
 #endif
 
     assert(key != NULL);
@@ -244,9 +244,9 @@ size_t BRKeyPrivKey(const BRKey *key, char *privKey, size_t pkLen)
     assert(key != NULL);
     
     if (secp256k1_ec_seckey_verify(_ctx, key->secret.u8)) {
-        data[0] = BITCOIN_PRIVKEY;
-#if BITCOIN_TESTNET
-        data[0] = BITCOIN_PRIVKEY_TEST;
+        data[0] = SUMCOIN_PRIVKEY;
+#if SUMCOIN_TESTNET
+        data[0] = SUMCOIN_PRIVKEY_TEST;
 #endif
         
         UInt256Set(&data[1], key->secret);
@@ -293,7 +293,7 @@ UInt160 BRKeyHash160(BRKey *key)
     return hash;
 }
 
-// writes the pay-to-pubkey-hash bitcoin address for key to addr
+// writes the pay-to-pubkey-hash sumcoin address for key to addr
 // returns the number of bytes written, or addrLen needed if addr is NULL
 size_t BRKeyAddress(BRKey *key, char *addr, size_t addrLen)
 {
@@ -303,9 +303,9 @@ size_t BRKeyAddress(BRKey *key, char *addr, size_t addrLen)
     assert(key != NULL);
     
     hash = BRKeyHash160(key);
-    data[0] = BITCOIN_PUBKEY_ADDRESS;
-#if BITCOIN_TESTNET
-    data[0] = BITCOIN_PUBKEY_ADDRESS_TEST;
+    data[0] = SUMCOIN_PUBKEY_ADDRESS;
+#if SUMCOIN_TESTNET
+    data[0] = SUMCOIN_PUBKEY_ADDRESS_TEST;
 #endif
     UInt160Set(&data[1], hash);
 
@@ -363,7 +363,7 @@ void BRKeyClean(BRKey *key)
     var_clean(key);
 }
 
-// Pieter Wuille's compact signature encoding used for bitcoin message signing
+// Pieter Wuille's compact signature encoding used for sumcoin message signing
 // to verify a compact signature, recover a public key from the signature and verify that it matches the signer's pubkey
 size_t BRKeyCompactSign(const BRKey *key, void *compactSig, size_t sigLen, UInt256 md)
 {

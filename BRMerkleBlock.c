@@ -42,8 +42,8 @@ inline static int _ceil_log2(int x)
     return r;
 }
 
-// from https://en.bitcoin.it/wiki/Protocol_specification#Merkle_Trees
-// Merkle trees are binary trees of hashes. Merkle trees in bitcoin use a double SHA-256, the SHA-256 hash of the
+// from https://en.sumcoin.it/wiki/Protocol_specification#Merkle_Trees
+// Merkle trees are binary trees of hashes. Merkle trees in sumcoin use a double SHA-256, the SHA-256 hash of the
 // SHA-256 hash of something. If, when forming a row in the tree (other than the root of the tree), it would have an odd
 // number of elements, the final double-hash is duplicated to ensure that the row has an even number of hashes. First
 // form the bottom row of the tree with the ordered double-SHA-256 hashes of the byte streams of the transactions in the
@@ -51,7 +51,7 @@ inline static int _ceil_log2(int x)
 // concatenation of the corresponding two hashes below it in the tree. This procedure repeats recursively until we reach
 // a row consisting of just a single double-hash. This is the merkle root of the tree.
 //
-// from https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#Partial_Merkle_branch_format
+// from https://github.com/sumcoin/bips/blob/master/bip-0037.mediawiki#Partial_Merkle_branch_format
 // The encoding works as follows: we traverse the tree in depth-first order, storing a bit for each traversed node,
 // signifying whether the node is the parent of at least one matched leaf txid (or a matched txid itself). In case we
 // are at the leaf level, or this bit is 0, its merkle node hash is stored, and its children are not explored further.

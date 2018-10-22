@@ -130,7 +130,7 @@ BRTransaction *BRWalletCreateTransaction(BRWallet *wallet, uint64_t amount, cons
 BRTransaction *BRWalletCreateTxForOutputs(BRWallet *wallet, const BRTxOutput outputs[], size_t outCount);
 
 // signs any inputs in tx that can be signed using private keys from the wallet
-// forkId is 0 for bitcoin, 0x40 for b-cash
+// forkId is 0 for sumcoin, 0x40 for b-cash
 // seed is the master private key (wallet seed) corresponding to the master public key given when the wallet was created
 // returns true if all inputs were signed, or false if there was an error or not all inputs were able to be signed
 int BRWalletSignTransaction(BRWallet *wallet, BRTransaction *tx, int forkId, const void *seed, size_t seedLen);
@@ -192,11 +192,11 @@ uint64_t BRWalletMaxOutputAmount(BRWallet *wallet);
 void BRWalletFree(BRWallet *wallet);
 
 // returns the given amount (in satoshis) in local currency units (i.e. pennies, pence)
-// price is local currency units per bitcoin
+// price is local currency units per sumcoin
 int64_t BRLocalAmount(int64_t amount, double price);
 
 // returns the given local currency amount in satoshis
-// price is local currency units (i.e. pennies, pence) per bitcoin
+// price is local currency units (i.e. pennies, pence) per sumcoin
 int64_t BRBitcoinAmount(int64_t localAmount, double price);
 
 #ifdef __cplusplus

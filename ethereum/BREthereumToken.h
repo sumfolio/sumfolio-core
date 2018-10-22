@@ -74,7 +74,7 @@ tokenGetContract (BREthereumToken token);
 
 extern const BREthereumToken tokenBRD;
 
-#if defined (BITCOIN_DEBUG)
+#if defined (SUMCOIN_DEBUG)
 extern const BREthereumToken tokenTST;
 #endif
 

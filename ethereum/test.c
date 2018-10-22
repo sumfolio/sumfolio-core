@@ -1493,7 +1493,7 @@ void runTokenTests () {
     token = tokenLookup ("0x558ec3152e2eb2174905cd19aea4e34a23de9ad6"); // BRD
     assert (NULL != token);
 
-#if defined (BITCOIN_DEBUG)
+#if defined (SUMCOIN_DEBUG)
     token = tokenLookup("0x3efd578b271d034a69499e4a2d933c631d44b9ad"); // TST: mainnet
     assert (NULL != token);
 #endif

@@ -232,7 +232,7 @@ console.log (result)
 static struct BREthereumTokenRecord tokens[] = {
     {
         // BRD first... so we can find it.
-#if defined (BITCOIN_TESTNET) && 1 == BITCOIN_TESTNET
+#if defined (SUMCOIN_TESTNET) && 1 == SUMCOIN_TESTNET
         "0x7108ca7c4718efa810457f228305c9c71390931a", // testnet
 #else
         "0x558ec3152e2eb2174905cd19aea4e34a23de9ad6", // mainnet
@@ -247,10 +247,10 @@ static struct BREthereumTokenRecord tokens[] = {
         {{{.u64 = {TOKEN_BRD_DEFAULT_GAS_PRICE_IN_WEI_UINT64, 0, 0, 0}}}},
         1
     },
-#if defined (BITCOIN_DEBUG)
+#if defined (SUMCOIN_DEBUG)
     {
         // (Optional) TST next... so we can find it too.
-#if defined (BITCOIN_TESTNET) && 1 == BITCOIN_TESTNET
+#if defined (SUMCOIN_TESTNET) && 1 == SUMCOIN_TESTNET
         "0x722dd3f80bac40c951b51bdd28dd19d435762180", // testnet,
 #else
         "0x3efd578b271d034a69499e4a2d933c631d44b9ad", // mainnet
@@ -265,7 +265,7 @@ static struct BREthereumTokenRecord tokens[] = {
         {{{.u64 = {TOKEN_BRD_DEFAULT_GAS_PRICE_IN_WEI_UINT64, 0, 0, 0}}}},
         1
     },
-#endif // defined (BITCOIN_DEBUG)
+#endif // defined (SUMCOIN_DEBUG)
     {
         "0xAf30D2a7E90d7DC361c8C4585e9BB7D2F6f15bc7",
         "1ST",
@@ -488,7 +488,7 @@ static struct BREthereumTokenRecord tokens[] = {
     },
     
     {
-#if defined (BITCOIN_TESTNET) && 1 == BITCOIN_TESTNET
+#if defined (SUMCOIN_TESTNET) && 1 == SUMCOIN_TESTNET
         "0x6e67ccd648244b3b8e2f56149b40ba8de9d79b09", // testnet,
 #else
         "0x9e3359f862b6c7f5c660cfd6d1aa6909b1d9504d", // mainnet
@@ -1807,7 +1807,7 @@ static struct BREthereumTokenRecord tokens[] = {
 
 const BREthereumToken tokenBRD = &tokens[0];
 
-#if defined (BITCOIN_DEBUG)
+#if defined (SUMCOIN_DEBUG)
 const BREthereumToken tokenTST = &tokens[1];
 #endif
 
