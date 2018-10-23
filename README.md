@@ -1,4 +1,4 @@
-# Sumpay-core
+# Sumfolio-core
 
 SPV Sumcoin C library
 
